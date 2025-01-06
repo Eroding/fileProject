@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fileproject.mapper.PhotoUserDownloadConfigMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.fileproject.domain.PhotoUserDownloadConfig">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="useCount" column="use_count" jdbcType="INTEGER"/>
+            <result property="useDate" column="use_date" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,residue_count,
+        use_date
+    </sql>
+</mapper>

@@ -1,0 +1,30 @@
+server:
+  port: 8111
+spring:
+  application:
+    name: fileProject
+  datasource:
+    url: jdbc:mysql://121.40.23.99:3306/cnh?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    #  password: chennanhai
+    password: dc@123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+logging:
+  level:
+    org:
+      mybatis: DEBUG
+      apache:
+        ibatis: DEBUG
+#mybatis-plus配置控制台打印完整带参数SQL语句
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  page-size-zero: true
+  supportMethodsArguments: true
+  params: count=countSql
+  offset-as-page-num: true
+
+

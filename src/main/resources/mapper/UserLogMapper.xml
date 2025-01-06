@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fileproject.mapper.UserLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.fileproject.domain.UserLog">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="targetId" column="target_id" jdbcType="INTEGER"/>
+        <result property="targetContent" column="target_content" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,user_id,user_name,
+        type,target_id,target_content,
+        create_time,update_time
+    </sql>
+    <select id="selectLogPage" resultType="com.example.fileproject.dto.UserLogVO">
+        select *
+        from user_log
+        <where>
+            <if test="req.userName!= null and req.userName!= ''">
+                and user_name like CONCAT('%', #{req.userName}, '%')
+            </if>
+            <if test="req.type!= null ">
+                and type  =#{req.type}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fileproject.mapper.PhotoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.fileproject.domain.Photo">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="labelId" column="label_id" jdbcType="INTEGER"/>
+        <result property="serialNumber" column="serial_number" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,url,name,
+        first_label_id,second_label_id
+    </sql>
+    <select id="selectPhotoPage" resultType="com.example.fileproject.domain.Photo">
+        select p.id,p.url,p.name,pl.label_id,p.serial_number,p.create_time,p.update_time from photo p
+        left join photo_label pl on pl.photo_id = p.id
+        left join label l on l.id = pl.label_id
+        <where>
+            <if test="req.vagueName!= null">
+                and ( p.name like CONCAT('%', #{req.vagueName}, '%') or l.label_name like CONCAT('%', #{req.vagueName},
+                '%'))
+            </if>
+            <if test="req.labelId!= null">
+                and pl.label_id = #{req.labelId}
+            </if>
+            <if test="req.labelIdList!=null and req.labelIdList.size() > 0">
+                and label_id in
+                <foreach collection="req.labelIdList" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        group by p.id
+        order by p.serial_number is null ,p.serial_number,p.create_time desc
+    </select>
+</mapper>
