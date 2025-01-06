@@ -39,6 +39,7 @@ public class PhotoDTO extends BasePageBO implements Serializable {
     private Integer labelId;
 
 
+
     private String vagueName;
 
     /**
