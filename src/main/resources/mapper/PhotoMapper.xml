@@ -30,13 +30,13 @@
                 and pl.label_id = #{req.labelId}
             </if>
             <if test="req.labelIdList!=null and req.labelIdList.size() > 0">
-                and label_id in
+                and pl.label_id in
                 <foreach collection="req.labelIdList" item="id" index="index" open="(" close=")" separator=",">
                     #{id}
                 </foreach>
             </if>
         </where>
         group by p.id
-        order by p.serial_number is null ,p.serial_number,p.create_time desc
+        order by p.serial_number is null ,p.serial_number,p.id desc
     </select>
 </mapper>

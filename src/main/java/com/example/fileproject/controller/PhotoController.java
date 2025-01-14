@@ -61,7 +61,20 @@ public class PhotoController {
 
     @GetMapping("/delete")
     public ResponseResult delete(@RequestParam Integer id)   {
-        photoService.removeById(id);
+        boolean b = photoService.removePhotoById(id);
+        if(!b){
+            return ResponseResult.failed(500,"删除失败");
+        }
+        return ResponseResult.success();
+    }
+
+    @PostMapping("/deleteList")
+    public ResponseResult deleteList(@RequestBody List<Integer> ids)   {
+
+        boolean b = photoService.removePhotoByIds(ids);
+        if(!b){
+            return ResponseResult.failed(500,"删除失败");
+        }
         return ResponseResult.success();
     }
 }

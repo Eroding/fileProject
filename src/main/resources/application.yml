@@ -9,6 +9,8 @@ spring:
     #  password: chennanhai
     password: dc@123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 100
 logging:
   level:
     org:
@@ -26,5 +28,6 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
   offset-as-page-num: true
+
 
 

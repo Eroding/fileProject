@@ -32,5 +32,6 @@
                 and type  =#{req.type}
             </if>
         </where>
+    order by create_time desc
     </select>
 </mapper>

@@ -27,6 +27,14 @@ public class ResponseResult<T> {
         return  responseResult;
     }
 
+    public static <T> ResponseResult<T> data(T data){
+        ResponseResult<T> responseResult=new ResponseResult<>();
+        responseResult.setCode(ResultCode.SUCCESS.getCode());
+        responseResult.setMessage(ResultCode.SUCCESS.getMessage());
+        responseResult.setData(data);
+        return  responseResult;
+    }
+
     public static <T> ResponseResult failed(int code,String message){
         ResponseResult<T> responseResult=new ResponseResult<>();
         responseResult.setCode(code);

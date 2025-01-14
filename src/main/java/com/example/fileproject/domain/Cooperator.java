@@ -4,35 +4,49 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
- * 用户表
- * @TableName user
+ * 合作单位表
+ * @TableName cooperator
  */
-@TableName(value ="user")
+@TableName(value ="cooperator")
 @Data
-public class User implements Serializable {
+public class Cooperator implements Serializable {
     /**
-     * 主键id
+     * 
      */
     @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 用户名
+     * 名称
      */
     private String name;
 
     /**
-     * 密码
+     * 图片
      */
-    private String password;
+    private String picture;
 
-    private Integer downloadCount;
+    /**
+     * 链接
+     */
+    private String url;
+
+    /**
+     * 
+     */
+    private Date createTime;
+
+    /**
+     * 
+     */
+    private Date updateTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
-
 }

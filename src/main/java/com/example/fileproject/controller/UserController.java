@@ -27,8 +27,8 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseResult detail(@RequestBody User user) {
-        Boolean login = userService.login(user);
-        if (login) {
+       User userResult = userService.login(user);
+        if (userResult!= null) {
             return ResponseResult.success("登录成功");
         } else {
             return ResponseResult.failed(500, "登录失败");

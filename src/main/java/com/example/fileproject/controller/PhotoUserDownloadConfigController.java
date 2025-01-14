@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.fileproject.common.ResponseResult;
 import com.example.fileproject.domain.PhotoDownloadConfig;
 import com.example.fileproject.domain.PhotoUserDownloadConfig;
+import com.example.fileproject.domain.User;
 import com.example.fileproject.service.PhotoDownloadConfigService;
 import com.example.fileproject.service.PhotoUserDownloadConfigService;
+import com.example.fileproject.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -26,6 +28,9 @@ public class PhotoUserDownloadConfigController {
     @Resource
     private PhotoDownloadConfigService photoDownloadConfigService;
 
+    @Resource
+    private UserService userService;
+
 
     @GetMapping("/getCount")
     public ResponseResult getCount(Integer userId) {
@@ -36,17 +41,18 @@ public class PhotoUserDownloadConfigController {
         queryWrapper.eq(PhotoUserDownloadConfig::getUseDate, today);
         PhotoUserDownloadConfig userDownloadConfig = photoUserDownloadConfigService.getOne(queryWrapper);
 
-        LambdaQueryWrapper<PhotoDownloadConfig> queryWrapper1 = new LambdaQueryWrapper<>();
-        queryWrapper1.orderByDesc(PhotoDownloadConfig::getId);
-        queryWrapper1.last("LIMIT 1");
-        PhotoDownloadConfig config = photoDownloadConfigService.getOne(queryWrapper1);
-        if (config == null) {
-            return ResponseResult.failed(500, "没有配置信息");
+        User user = userService.getById(userId);
+        if (user == null || user.getDownloadCount() == null ) {
+            return ResponseResult.failed(500, "当前用户没有配置信息,请给当前用户配置默认的下载次数");
         }
         if (userDownloadConfig == null) {
-            return ResponseResult.success(config.getAllCount());
+            return ResponseResult.success(user.getDownloadCount());
         } else {
-            return ResponseResult.success(config.getAllCount() -userDownloadConfig.getUseCount());
+            if(user.getDownloadCount().equals(-1)){
+                return ResponseResult.success(user.getDownloadCount());
+            }else {
+                return ResponseResult.success(user.getDownloadCount() - userDownloadConfig.getUseCount());
+            }
         }
     }
 

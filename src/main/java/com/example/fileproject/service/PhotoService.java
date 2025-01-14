@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
 * @author edison
@@ -19,4 +20,8 @@ public interface PhotoService extends IService<Photo> {
     String putFile(MultipartFile file) throws IOException;
 
     PageInfo<Photo> pageByCondition(PhotoDTO photo);
+
+    boolean removePhotoById(Integer id);
+
+    boolean removePhotoByIds(List<Integer> ids);
 }

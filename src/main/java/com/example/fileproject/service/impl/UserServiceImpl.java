@@ -25,7 +25,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     private UserLogService userLogService ;
 
     @Override
-    public Boolean login(User user) {
+    public User login(User user) {
 
         if(user.getName() == null || user.getPassword() == null){
             throw new RuntimeException("用户名或密码不能为空");
@@ -38,16 +38,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
         User one = this.getOne(wrapper);
         if(one != null){
-
             //加日志
             UserLog userLog = new UserLog();
             userLog.setUserId(one.getId());
             userLog.setUserName(user.getName());
             userLog.setType(1);
             userLogService.save(userLog);
-            return true;
+            return one;
         }
-        return false;
+        return null;
     }
 }
 

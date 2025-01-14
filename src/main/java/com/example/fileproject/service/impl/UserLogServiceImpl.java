@@ -75,6 +75,11 @@ public class UserLogServiceImpl extends ServiceImpl<UserLogMapper, UserLog>
         return new PageInfo<>(userLogVOS);
     }
 
+    /**
+     * type: 1登录 2表示下载，3:表示点开
+     * @param userLog
+     * @return
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean create(UserLog userLog) {
