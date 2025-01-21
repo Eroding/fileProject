@@ -54,8 +54,12 @@
             <artifactId>qiniu-java-sdk</artifactId>
             <version>7.12.1</version>
         </dependency>
-
-
+        <!--jwt依赖 -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
         <!-- <dependency>
              <groupId>com.mysql</groupId>
              <artifactId>mysql-connector-jdbc</artifactId>

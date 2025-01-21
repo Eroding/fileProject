@@ -29,7 +29,7 @@ public class UserController {
     public ResponseResult detail(@RequestBody User user) {
        User userResult = userService.login(user);
         if (userResult!= null) {
-            return ResponseResult.success("登录成功");
+            return ResponseResult.data(userResult);
         } else {
             return ResponseResult.failed(500, "登录失败");
         }
@@ -56,13 +56,14 @@ public class UserController {
 
     @PostMapping("/update")
     public ResponseResult update(@RequestBody User user) {
-        Boolean update = userService.updateById(user);
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getName, user.getName());
+        queryWrapper.ne(User::getId, user.getId());
         User existUser = userService.getOne(queryWrapper);
         if (existUser!= null) {
             return ResponseResult.failed(500, "用户名已存在");
         }
+        Boolean update = userService.updateById(user);
         if (update) {
             return ResponseResult.success("更新成功");
         } else {

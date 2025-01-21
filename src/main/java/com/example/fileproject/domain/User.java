@@ -20,6 +20,8 @@ public class User implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    private Integer loginTime;
+
     /**
      * 用户名
      */

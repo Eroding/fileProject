@@ -54,7 +54,7 @@ public class UserLogServiceImpl extends ServiceImpl<UserLogMapper, UserLog>
 
         Page<Object> pageQuery = new Page<>(userLog.getPage(), userLog.getRows());
         pageQuery.setOptimizeCountSql(false);
-
+        PageHelper.startPage(userLog.getPage(), userLog.getRows());
         List<UserLogVO> userLogVOS = userLogMapper.selectLogPage(pageQuery, userLog);
 
         for (UserLogVO userLogVO : userLogVOS) {
