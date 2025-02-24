@@ -8,6 +8,7 @@
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="labelIds" column="label_ids" jdbcType="VARCHAR"/>
         <result property="downloadCount" column="download_count" jdbcType="VARCHAR"/>
     </resultMap>
 
